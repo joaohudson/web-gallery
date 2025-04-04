@@ -1,22 +1,28 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:webgallery/core/app_exception.dart';
 
 class GalleryManager{
 
   Future<Gallery> loadGallery() async {
     var fileResult = await FilePicker.platform.pickFiles();
     if(fileResult == null) {
-      throw Exception('File not selected!');
+      throw AppException('File not selected!');
     }
-    var filePath = fileResult.files.single.path as String;
-    var file = File(filePath);
-    var fileContent = await file.readAsString(encoding: utf8);
-    var jsonContent = jsonDecode(fileContent);
-    return Gallery.fromJson(jsonContent);
+    try {
+      var filePath = fileResult.files.single.path as String;
+      var file = File(filePath);
+      var fileContent = await file.readAsString(encoding: utf8);
+      var jsonContent = jsonDecode(fileContent);
+      return Gallery.fromJson(jsonContent);
+    } catch(e) {
+      print(e);
+      throw AppException('Invalid file!');
+    }
   }
 
-  void saveGallery(Gallery gallery) async {
+  Future<void> saveGallery(Gallery gallery) async {
     var json = jsonEncode(gallery);
     var path = await FilePicker.platform.getDirectoryPath();
     var filename = 'gallery-${DateTime.now().microsecondsSinceEpoch.toString()}.json';

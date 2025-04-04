@@ -12,8 +12,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Web Gallery',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrangeAccent),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Empty'),
@@ -42,15 +43,27 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void loadGallery() async {
-    var newGallery = await galleryManager.loadGallery();
-    setState(() {
-      gallery = newGallery;
-      print(gallery.urls);
-    });
+    try {
+      var newGallery = await galleryManager.loadGallery();
+      setState(() {
+        gallery = newGallery;
+      });
+    } catch (e) {
+      showErrorMessage(e.toString());
+    }
   }
 
-  void saveGallery() {
-    galleryManager.saveGallery(gallery);
+  void saveGallery() async {
+    try {
+      await galleryManager.saveGallery(gallery);
+    } catch (e) {
+      showErrorMessage(e.toString());
+    }
+  }
+
+  void showErrorMessage(String message) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -62,6 +75,13 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: [
           IconButton(
               onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) => buildImageInsertModal(context));
+              },
+              icon: const Icon(Icons.add)),
+          IconButton(
+              onPressed: () {
                 saveGallery();
               },
               icon: const Icon(Icons.save)),
@@ -69,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 loadGallery();
               },
-              icon: const Icon(Icons.upload))
+              icon: const Icon(Icons.upload)),
         ],
       ),
       body: ListView.builder(
@@ -86,15 +106,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           );
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(
-              context: context,
-              builder: (context) => buildImageInsertModal(context));
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
