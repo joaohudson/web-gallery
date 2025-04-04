@@ -16,8 +16,7 @@ class GalleryManager{
       var fileContent = await file.readAsString(encoding: utf8);
       var jsonContent = jsonDecode(fileContent);
       return Gallery.fromJson(jsonContent);
-    } catch(e) {
-      print(e);
+    } catch(_) {
       throw AppException('Invalid file!');
     }
   }
