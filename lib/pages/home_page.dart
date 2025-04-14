@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 toogleDeleteOperation();
               },
-              icon: const Icon(Icons.remove)),
+              icon: const Icon(Icons.delete)),
           IconButton(
               onPressed: () {
                 showModalBottomSheet(
