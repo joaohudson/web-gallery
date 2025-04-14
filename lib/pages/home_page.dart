@@ -43,7 +43,11 @@ class _HomePageState extends State<HomePage> {
 
   void changeGalleryName(String newGalleryName) {
     setState(() {
-      gallery.name = newGalleryName;
+      if(newGalleryName.isNotEmpty) {
+        gallery.name = newGalleryName;
+      } else {
+        showMessage('Enter a non-empty name!');
+      }
     });
   }
 
