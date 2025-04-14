@@ -43,11 +43,17 @@ class _HomePageState extends State<HomePage> {
 
   void changeGalleryName(String newGalleryName) {
     setState(() {
-      if(newGalleryName.isNotEmpty) {
+      if (newGalleryName.isNotEmpty) {
         gallery.name = newGalleryName;
       } else {
         showMessage('Enter a non-empty name!');
       }
+    });
+  }
+
+  void createNewEmptyGallery() {
+    setState(() {
+      gallery = Gallery('New Gallery', []);
     });
   }
 
@@ -70,6 +76,11 @@ class _HomePageState extends State<HomePage> {
                     builder: (builder) => buildGalleryNameEditModal(context));
               },
               icon: const Icon(Icons.edit)),
+          IconButton(
+              onPressed: () {
+                createNewEmptyGallery();
+              },
+              icon: const Icon(Icons.new_label)),
           IconButton(
               onPressed: () {
                 showModalBottomSheet(
@@ -95,9 +106,7 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (BuildContext context, int index) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              WebImage(gallery.urls[index])
-            ],
+            children: [WebImage(gallery.urls[index])],
           );
         },
       ),
