@@ -31,7 +31,7 @@ class GalleryManager{
 }
 
 class Gallery {
-  final String name;
+  String name;
   final List<String> urls;
 
   Gallery(this.name, this.urls);
