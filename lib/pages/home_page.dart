@@ -88,16 +88,16 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
               onPressed: () {
-                toogleDeleteOperation();
-              },
-              icon: const Icon(Icons.delete)),
-          IconButton(
-              onPressed: () {
                 showModalBottomSheet(
                     context: context,
                     builder: (builder) => buildGalleryNameEditModal(context));
               },
               icon: const Icon(Icons.edit)),
+          IconButton(
+              onPressed: () {
+                toogleDeleteOperation();
+              },
+              icon: const Icon(Icons.delete)),
           IconButton(
               onPressed: () {
                 createNewEmptyGallery();
