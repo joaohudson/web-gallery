@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:webgallery/components/removable_web_image.dart';
 import 'package:webgallery/components/web_image.dart';
 import 'package:webgallery/core/gallery_manager.dart';
 
@@ -11,6 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Gallery gallery = Gallery("New Gallery", []);
+  bool enableDelete = false;
   GalleryManager galleryManager = GalleryManager();
   TextEditingController linkFieldEditingController = TextEditingController();
   TextEditingController galleryNameFieldEditingController =
@@ -57,6 +59,21 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void toogleDeleteOperation() {
+    setState(() {
+      enableDelete = !enableDelete;
+    });
+  }
+
+  void deleteImage(int index) {
+    setState(() {
+      if (enableDelete) {
+        gallery.urls.removeAt(index);
+        showMessage('Image deleted!');
+      }
+    });
+  }
+
   void showMessage(String message) {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text(message)));
@@ -69,6 +86,11 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(gallery.name),
         actions: [
+          IconButton(
+              onPressed: () {
+                toogleDeleteOperation();
+              },
+              icon: const Icon(Icons.remove)),
           IconButton(
               onPressed: () {
                 showModalBottomSheet(
@@ -106,7 +128,15 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (BuildContext context, int index) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [WebImage(gallery.urls[index])],
+            children: [
+              GestureDetector(
+                  onTap: () {
+                    deleteImage(index);
+                  },
+                  child: enableDelete
+                      ? RemovableWebImage(gallery.urls[index])
+                      : WebImage(gallery.urls[index]))
+            ],
           );
         },
       ),
