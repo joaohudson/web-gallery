@@ -1,16 +1,16 @@
 # webgallery
 
-A new Flutter project.
+**Web Gallery** is native application for viewing images in an organized and distraction-free way. It allows you to create custom galleries, browse images smoothly, and easily share them with others.
 
-## Getting Started
+## 📌 Features
+- 🖼️ **Smooth and organized image display**.
+- 🏗️ **Gallery creation and customization**.
+- 🔗 **Easy sharing** of galleries between users.
+- 📁 **Lightweight storage**, keeping only image links.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🚀 How to Use
+1. **Install** the application in your device.
+2. **Add images** to create your gallery.
+3. **Browse** images smoothly.
+4. **Save and share** your galleries with others.
+5. **Load** shared galleries to view them easily.
