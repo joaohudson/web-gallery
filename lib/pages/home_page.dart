@@ -98,35 +98,45 @@ class _HomePageState extends State<HomePage> {
                     builder: (builder) => buildGalleryNameEditModal(context));
               },
               icon: const Icon(Icons.edit)),
-          IconButton(
-              onPressed: () {
-                createNewEmptyGallery();
-              },
-              icon: const Icon(Icons.new_label)),
-          IconButton(
-              onPressed: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (context) => buildImageInsertModal(context));
-              },
-              icon: const Icon(Icons.add)),
-          IconButton(
-              onPressed: () {
-                toogleDeleteOperation();
-              },
-              icon: Icon(enableDelete ? Icons.cancel_outlined : Icons.delete)),
-          IconButton(
-              onPressed: () {
-                saveGallery();
-              },
-              icon: const Icon(Icons.save)),
-          IconButton(
-              onPressed: () {
-                loadGallery();
-              },
-              icon: const Icon(Icons.upload)),
         ],
       ),
+      bottomNavigationBar: BottomAppBar(
+          color: enableDelete
+              ? Theme.of(context).colorScheme.error
+              : Theme.of(context).colorScheme.inversePrimary,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                  onPressed: () {
+                    createNewEmptyGallery();
+                  },
+                  icon: const Icon(Icons.new_label)),
+              IconButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) => buildImageInsertModal(context));
+                  },
+                  icon: const Icon(Icons.add)),
+              IconButton(
+                  onPressed: () {
+                    toogleDeleteOperation();
+                  },
+                  icon: Icon(
+                      enableDelete ? Icons.cancel_outlined : Icons.delete)),
+              IconButton(
+                  onPressed: () {
+                    saveGallery();
+                  },
+                  icon: const Icon(Icons.save)),
+              IconButton(
+                  onPressed: () {
+                    loadGallery();
+                  },
+                  icon: const Icon(Icons.upload)),
+            ],
+          )),
       body: ListView.builder(
         padding: EdgeInsets.zero,
         itemCount: gallery.urls.length,
