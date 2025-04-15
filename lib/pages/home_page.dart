@@ -151,6 +151,7 @@ class _HomePageState extends State<HomePage> {
   Widget buildGalleryNameEditModal(BuildContext context) {
     return Column(children: [
       TextField(
+        textAlign: TextAlign.center,
         controller: galleryNameFieldEditingController,
         decoration:
             const InputDecoration(hintText: 'Enter a new gallery name:'),
