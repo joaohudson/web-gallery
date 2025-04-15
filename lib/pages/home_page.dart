@@ -86,7 +86,10 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: enableDelete
             ? Theme.of(context).colorScheme.error
             : Theme.of(context).colorScheme.inversePrimary,
-        title: Text(gallery.name),
+        title: Text(
+          gallery.name,
+          overflow: TextOverflow.fade,
+        ),
         actions: [
           IconButton(
               onPressed: () {
