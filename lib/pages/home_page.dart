@@ -83,7 +83,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: enableDelete
+            ? Theme.of(context).colorScheme.error
+            : Theme.of(context).colorScheme.inversePrimary,
         title: Text(gallery.name),
         actions: [
           IconButton(
@@ -93,11 +95,6 @@ class _HomePageState extends State<HomePage> {
                     builder: (builder) => buildGalleryNameEditModal(context));
               },
               icon: const Icon(Icons.edit)),
-          IconButton(
-              onPressed: () {
-                toogleDeleteOperation();
-              },
-              icon: const Icon(Icons.delete)),
           IconButton(
               onPressed: () {
                 createNewEmptyGallery();
@@ -110,6 +107,11 @@ class _HomePageState extends State<HomePage> {
                     builder: (context) => buildImageInsertModal(context));
               },
               icon: const Icon(Icons.add)),
+          IconButton(
+              onPressed: () {
+                toogleDeleteOperation();
+              },
+              icon: Icon(enableDelete ? Icons.cancel_outlined : Icons.delete)),
           IconButton(
               onPressed: () {
                 saveGallery();
@@ -129,13 +131,16 @@ class _HomePageState extends State<HomePage> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              GestureDetector(
-                  onTap: () {
-                    deleteImage(index);
-                  },
-                  child: enableDelete
-                      ? RemovableWebImage(gallery.urls[index])
-                      : WebImage(gallery.urls[index]))
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                    onTap: () {
+                      deleteImage(index);
+                    },
+                    child: enableDelete
+                        ? RemovableWebImage(gallery.urls[index])
+                        : WebImage(gallery.urls[index])),
+              )
             ],
           );
         },
