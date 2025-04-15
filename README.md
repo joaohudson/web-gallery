@@ -1,4 +1,4 @@
-# webgallery
+# Web Gallery
 
 **Web Gallery** is native application for viewing images in an organized and distraction-free way. It allows you to create custom galleries, browse images smoothly, and easily share them with others.
 
