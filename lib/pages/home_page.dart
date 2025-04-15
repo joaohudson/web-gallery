@@ -150,7 +150,11 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildGalleryNameEditModal(BuildContext context) {
     return Column(children: [
-      TextField(controller: galleryNameFieldEditingController),
+      TextField(
+        controller: galleryNameFieldEditingController,
+        decoration:
+            const InputDecoration(hintText: 'Enter a new gallery name:'),
+      ),
       IconButton(
         icon: const Icon(Icons.check),
         onPressed: () {
@@ -163,7 +167,10 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildImageInsertModal(BuildContext context) {
     return Column(children: [
-      TextField(controller: linkFieldEditingController),
+      TextField(
+          controller: linkFieldEditingController,
+          decoration: const InputDecoration(
+              hintText: 'Enter the link of the new image to gallery:')),
       IconButton(
         icon: const Icon(Icons.add),
         onPressed: () {
