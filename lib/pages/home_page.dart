@@ -109,7 +109,10 @@ class _HomePageState extends State<HomePage> {
             children: [
               IconButton(
                   onPressed: () {
-                    createNewEmptyGallery();
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) =>
+                            buildNewGalleryConfirmationModal(context));
                   },
                   icon: const Icon(Icons.new_label)),
               IconButton(
@@ -194,5 +197,34 @@ class _HomePageState extends State<HomePage> {
         },
       )
     ]);
+  }
+
+  Widget buildNewGalleryConfirmationModal(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(30),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+        const Text('Create a new gallery?'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.check),
+              onPressed: () {
+                createNewEmptyGallery();
+                Navigator.pop(context);
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.cancel_outlined),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+          ],
+        )
+      ]),
+    );
   }
 }
