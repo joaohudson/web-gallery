@@ -23,9 +23,12 @@ class GalleryManager{
 
   Future<void> saveGallery(Gallery gallery) async {
     var json = jsonEncode(gallery);
-    var path = await FilePicker.platform.getDirectoryPath();
     var filename = 'gallery-${DateTime.now().microsecondsSinceEpoch.toString()}.json';
-    var file = File("$path/$filename");
+    var path = await FilePicker.platform.saveFile(dialogTitle: 'Choose the path to save the gallery', fileName: filename);
+    if(path == null) {
+      throw AppException('File no selected!');
+    }
+    var file = File(path);
     file.writeAsString(json, encoding: utf8);
   }
 }
