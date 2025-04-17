@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:webgallery/core/app_exception.dart';
 
@@ -24,7 +25,11 @@ class GalleryManager{
   Future<void> saveGallery(Gallery gallery) async {
     var json = jsonEncode(gallery);
     var filename = 'gallery-${DateTime.now().microsecondsSinceEpoch.toString()}.json';
-    var path = await FilePicker.platform.saveFile(dialogTitle: 'Choose the path to save the gallery', fileName: filename);
+    var path = await FilePicker.platform.saveFile(
+      dialogTitle: 'Choose the path to save the gallery', 
+      fileName: filename,
+      bytes: Uint8List.fromList(json.codeUnits)
+    );
     if(path == null) {
       throw AppException('File no selected!');
     }
