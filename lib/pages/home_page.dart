@@ -144,21 +144,25 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.zero,
         itemCount: gallery.urls.length,
         itemBuilder: (BuildContext context, int index) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                    onTap: () {
-                      deleteImage(index);
-                    },
-                    child: enableDelete
-                        ? RemovableWebImage(gallery.urls[index])
-                        : WebImage(gallery.urls[index])),
+          return SizedBox(
+              width: MediaQuery.sizeOf(context).width - 40,
+              height: MediaQuery.sizeOf(context).height - 120,
+              child: Center(
+                child: Container(
+                  decoration: const BoxDecoration(color: Colors.black),
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                        onTap: () {
+                          deleteImage(index);
+                        },
+                        child: enableDelete
+                            ? RemovableWebImage(gallery.urls[index])
+                            : WebImage(gallery.urls[index])),
+                  ),
+                ),
               )
-            ],
-          );
+            );
         },
       ),
     );
@@ -202,9 +206,8 @@ class _HomePageState extends State<HomePage> {
   Widget buildNewGalleryConfirmationModal(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(30),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+      child:
+          Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         const Text('Create a new gallery?'),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
