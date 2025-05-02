@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webgallery/components/removable_web_image.dart';
 import 'package:webgallery/components/web_image.dart';
 import 'package:webgallery/core/gallery_manager.dart';
+import 'package:webgallery/pages/single_image_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -65,11 +66,17 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void deleteImage(int index) {
+  void handleClickImageItem(int index) {
     setState(() {
       if (enableDelete) {
         gallery.urls.removeAt(index);
         showMessage('Image deleted!');
+      } else {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    SingleImagePage(gallery: gallery, index: index,)));
       }
     });
   }
@@ -161,7 +168,7 @@ class _HomePageState extends State<HomePage> {
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
                   onTap: () {
-                    deleteImage(index);
+                    handleClickImageItem(index);
                   },
                   child: enableDelete
                       ? RemovableWebImage(gallery.urls[index])
