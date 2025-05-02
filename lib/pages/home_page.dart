@@ -144,28 +144,31 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.zero,
         itemCount: gallery.urls.length,
         itemBuilder: (BuildContext context, int index) {
-          return SizedBox(
-              width: MediaQuery.sizeOf(context).width - 40,
-              height: MediaQuery.sizeOf(context).height - 120,
-              child: Center(
-                child: Container(
-                  decoration: const BoxDecoration(color: Colors.black),
-                  child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                        onTap: () {
-                          deleteImage(index);
-                        },
-                        child: enableDelete
-                            ? RemovableWebImage(gallery.urls[index])
-                            : WebImage(gallery.urls[index])),
-                  ),
-                ),
-              )
-            );
+          return buildImageItem(context, index);
         },
       ),
     );
+  }
+
+  Widget buildImageItem(BuildContext context, int index) {
+    return SizedBox(
+        width: MediaQuery.sizeOf(context).width - 40,
+        height: MediaQuery.sizeOf(context).height - 120,
+        child: Center(
+          child: Container(
+            decoration: const BoxDecoration(color: Colors.black),
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                  onTap: () {
+                    deleteImage(index);
+                  },
+                  child: enableDelete
+                      ? RemovableWebImage(gallery.urls[index])
+                      : WebImage(gallery.urls[index])),
+            ),
+          ),
+        ));
   }
 
   Widget buildGalleryNameEditModal(BuildContext context) {
